@@ -1,58 +1,69 @@
-{{define "creation"}}
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>FORUM</title>
-    <link rel="icon" href="https://images.vexels.com/media/users/3/135082/isolated/preview/0a17f36316d5884f38f4520424f6c235-conversation-sign-with-round-background-by-vexels.png" type="image/gif" sizes="16x16" />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <link href="../assets/css/main.css" rel="stylesheet" />
+    <title>formulaire d'inscription</title>
+    <link rel="icon" href="https://campusamazonia.fr/wp-content/uploads/2020/10/bb-dash-icon-02-forum-1.png" type="image/gif" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/creation_compte.css" />
+    <!--<link rel="stylesheet" href="inscription.css">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
 </head>
 
 <body>
-    <form method="POST" class="Register" name="Register_form">
-        <!-- Saisie de Prenom -->
-        <div class="sign-in">
-            <label for="name-input"> First Name : </label>
-            <input id="name-input" class="name" name="name" type="text" value="" />
-        </div>
+    <div class="inputs">
+        <form method="POST" class="Register" name="Register_form" onsubmit="return verif()">
+            <h1>Sign Up</h1>
+            <!-- Saisie de Prenom -->
+            <div class="sign-in">
+                <label for="name-input"> First Name : </label>
+                <input id="name-input" class="first_name" name="first_name" type="text" value="" />
+            </div>
 
-        <!-- Saisie de Nom -->
-        <div class="sign-in">
-            <label for="last_name-input"> Last Name : </label>
-            <input id="last_name-input" class="last_name" name="last_name" type="text" value="" />
-        </div>
+            <!-- Saisie de Nom -->
+            <div class="sign-in">
+                <label for="last_name-input"> Last Name : </label>
+                <input id="last_name-input" class="last_name" name="last_name" type="text" value="" />
+            </div>
 
-        <!-- Saisie du Mail -->
-        <div class="sign-in">
-            <label for="Mail-input"> E-mail : </label>
-            <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
-        </div>
-        <!-- Saisie du l'addresse -->
-        <div class="sign-in">
-            <label for="Address-input"> Address : </label>
-            <input id="Address-input" class="Address" name="Address" type="text" value="" />
-        </div>
+            <!-- Saisie du Mail -->
+            <div class="sign-in">
+                <label for="Mail-input"> E-mail : </label>
+                <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
+            </div>
+            <!-- Saisie du l'addresse -->
+            <div class="sign-in">
+                <label for="User_name"> User name : </label>
+                <input id="User_name" class="User_name" name="User_name" type="text" value="" />
+            </div>
 
-        <!-- Saisie du Mot de passe -->
-        <div class="sign-in">
-            <label for="MDP-input"> Password : </label>
-            <input id="MDP-input" class="MDP" name="MDP" type="password" value="" />
-        </div>
+            <!-- Saisie du Mot de passe -->
+            <div class="sign-in">
+                <label for="MDP-input"> Password : </label>
+                <input id="MDP-input" class="MDP" name="MDP" type="password" value="" />
+            </div>
+            <!-- Date de naissance -->
+            <label for="date">Birth date : </label>
 
+            <input type="date" id="date" name="date_naissance" value="2018-07-22" min="1900-01-01" max="2018-12-31">
 
-
-        <div class="input-submit">
-            <input class="submit" type="submit" value="start" />
-            <!-- <input type="button" value="Submit" onsubmit="return verif()" /> -->
-        </div>
+            <!-- Sexe -->
+            <!--<input type="Gender" placeholder="Gender">-->
+            <label><b>Gender </b> </label>
+            <label style="width: 200px"><input type="radio" name="genre" value="Male" />Male</label
+      >
+      <label style="width: 200px"
+        ><input type="radio" name="genre" value="Female" />Female</label
+      >
+      <label style="width: 200px"
+        ><input type="radio" name="genre" value="Custom" />Custom</label
+      >
+      <div class="input-submit" align="center">
+        <input class="submit" type="submit" value="Create Account" />
+        <!-- <input type="button" value="Submit" onsubmit="return verif()" /> -->
+      </div>
+      
     </form>
-    <!-- <script src="../assets/js/main.js"></script> -->
-</body>
-
+    <a href="./login.html">LOGIN</a>
+    <script src="../assets/js/main.js"></script>
+  </body>
 </html>
-{{ end }}

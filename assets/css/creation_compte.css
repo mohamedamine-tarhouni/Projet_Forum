@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap%22');
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fffeee;
+}
+
+form {
+    margin-top: 20px;
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 10px;
+    border: 2px solid rgb(209, 204, 204);
+    min-width: 500px;
+}
+
+form h1 {
+    color: rgb(0, 128, 85);
+    font-size: 70px;
+    ;
+    text-align: center;
+}
+
+form .inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+form .inputs input[class="first_name"],
+input[class="first_name"],
+input[class="last_name"],
+input[class="Mail"],
+input[class="User_name"],
+input[class="MDP"],
+input[type="date"] {
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid rgb(234, 247, 214);
+    background-color: rgb(249, 255, 240);
+    margin-bottom: 15px;
+    width: 100%;
+    outline: none;
+}
+
+.submit {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(152, 194, 152);
+    font-size: 15px;
+    font-family: Verdana, sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+    font-size: 15px;
+}

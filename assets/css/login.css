@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFFEEE;
+    font-family: 'Arial';
+}
+
+.login {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    margin: 20 0 0 450px;
+    padding: 80px;
+    border: 2px solid rgb(209, 204, 204);
+    background: white;
+    border-radius: 15px;
+}
+
+h2 {
+    font-family: "Playfair Display", serif;
+    text-align: center;
+    font-size: 30px;
+    color: rgb(0, 128, 85);
+    padding: 20px;
+}
+
+label {
+    color: black;
+    font-size: 15px;
+}
+
+.Mail {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+    background-color: #FFFAED;
+    border: 2px solid rgb(209, 204, 204);
+}
+
+.MDP {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+    background-color: #FFFAED;
+    border: 2px solid rgb(209, 204, 204);
+}
+
+#log {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    background-color: rgb(152, 194, 152);
+    color: white;
+}
+
+span {
+    color: rgb(5, 0, 0);
+    font-size: 17px;
+}
