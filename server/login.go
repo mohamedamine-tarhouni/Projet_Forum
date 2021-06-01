@@ -96,9 +96,19 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	password := select_password(database, Mail)
 	println(password)
 	if cryptage.Verif(MDP, password) {
-		http.Redirect(w, r, "/connected.html", http.StatusFound)
+		http.SetCookie(w, &http.Cookie{
+			Name:  "logged-in",
+			Value: "1",
+			Path:  "/",
+		})
+		// http.Redirect(w, r, "/connected.html", http.StatusFound)
 		println("tout est bon")
 	} else {
+		http.SetCookie(w, &http.Cookie{
+			Name:  "logged-in",
+			Value: "0",
+			Path:  "/",
+		})
 		println("faux mot de passe")
 		// http.Redirect(w, r, "/login.html", http.StatusFound)
 	}
@@ -121,8 +131,14 @@ func renderTemplate_verif(w http.ResponseWriter, r *http.Request) {
 }
 
 func renderTemplate_accueil(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("logged-in")
+	if err != nil {
+		http.Error(w, http.StatusText(400), http.StatusBadRequest)
+		return
+	}
+	println(c.Value)
 	parsedTemplate, _ := template.ParseFiles("./template/Accueil.html")
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	err_tmpl := parsedTemplate.Execute(w, c)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return
