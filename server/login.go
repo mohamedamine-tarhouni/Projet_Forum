@@ -10,6 +10,28 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+func display_db(db *sql.DB) {
+	query := "SELECT * FROM Utilisateur"
+	result, err := db.Query(query)
+	if err != nil {
+		println("utilisateur n'existe pas")
+	}
+	var PASSWORD string
+	var MAIL string
+	var Nom string
+	var PRENOM string
+	var ID_user int
+	var ADDRESSE string
+	var Date string
+	for result.Next() {
+		result.Scan(&ID_user, &Nom, &PRENOM, &MAIL, &PASSWORD, &ADDRESSE, &Date)
+		println("password = ", PASSWORD)
+		println("id = ", ID_user)
+		println("prenom = ", PRENOM)
+		println("nom = ", Nom)
+		println("mail = ", MAIL)
+	}
+}
 func select_password(db *sql.DB, address string) string {
 	query := "SELECT * FROM Utilisateur WHERE MAIL='" + address + "'"
 	result, err := db.Query(query)
@@ -26,6 +48,10 @@ func select_password(db *sql.DB, address string) string {
 	for result.Next() {
 		result.Scan(&ID_user, &Nom, &PRENOM, &MAIL, &PASSWORD, &ADDRESSE, &Date)
 		println("password = ", PASSWORD)
+		println("id = ", ID_user)
+		println("prenom = ", PRENOM)
+		println("nom = ", Nom)
+		println("mail = ", MAIL)
 		return PASSWORD
 	}
 	return "Utilisateur n'existe pas dans la base"
@@ -55,11 +81,11 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 	Date := r.PostFormValue("date_naissance")
 	println(Date)
 	//ouverture de la base (on la crée si elle n'existe pas)
-	// database, err := sql.Open("sqlite3", "./Forum.db")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	database := initdatabase("./Forum.db")
+	database, err := sql.Open("sqlite3", "./Forum.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// database := initdatabase("./Forum.db")
 
 	//creation du table Utilisateur
 	// statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS Utilisateur (    ID_user    INTEGER            PRIMARY KEY ASC AUTOINCREMENT,Nom        STRING             NOT NULL,PRENOM     STRING             NOT NULL,MAIL       [STRING UNIQUENOT] NOT NULL							  UNIQUE,PASSWORD   STRING             NOT NULL,User_name  STRING             NOT NULL							  UNIQUE,Birth_Date DATE);")
@@ -83,6 +109,7 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, _ := template.ParseFiles("./template/login.html")
 	database := initdatabase("./Forum.db")
+	display_db(database)
 	//Call to ParseForm makes form fields available.
 	err := r.ParseForm()
 	if err != nil {
@@ -101,7 +128,7 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 			Value: "1",
 			Path:  "/",
 		})
-		// http.Redirect(w, r, "/connected.html", http.StatusFound)
+		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 		println("tout est bon")
 	} else {
 		http.SetCookie(w, &http.Cookie{
@@ -135,6 +162,14 @@ func renderTemplate_accueil(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
 		return
+	}
+	if r.URL.Path == "/logout.html" {
+		http.SetCookie(w, &http.Cookie{
+			Name:  "logged-in",
+			Value: "0",
+			Path:  "/",
+		})
+		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 	}
 	println(c.Value)
 	parsedTemplate, _ := template.ParseFiles("./template/Accueil.html")
