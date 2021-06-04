@@ -1,5 +1,8 @@
 package connexion
 
+type Post struct {
+}
+
 func Forum() {
-	println("hello from forum")
+	// http.HandleFunc("/Post.html", RenderTemplate_accueil)
 }

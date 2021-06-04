@@ -24,7 +24,7 @@ func select_password(db *sql.DB, address string) string {
 		_, _ = db.Exec("PRAGMA journal_mode=WAL;")
 		return PASSWORD
 	}
-	return "Utilisateur n'existe pas dans la base"
+	return "0"
 }
 func initdatabase(database string) *sql.DB {
 	db, err := sql.Open("sqlite3", database)
@@ -90,16 +90,18 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	password := select_password(database, Mail)
 	defer database.Close()
 	println(password)
-	if cryptage.Verif(MDP, password) {
-		http.SetCookie(w, &http.Cookie{
-			Name:  "logged-in",
-			Value: "1",
-			Path:  "/",
-		})
-		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
-		println("tout est bon")
-	} else {
-		println("faux mot de passe")
+	if password != "0" {
+		if cryptage.Verif(MDP, password) {
+			http.SetCookie(w, &http.Cookie{
+				Name:  "logged-in",
+				Value: "1",
+				Path:  "/",
+			})
+			http.Redirect(w, r, "/Accueil.html", http.StatusFound)
+			println("tout est bon")
+		} else {
+			println("faux mot de passe")
+		}
 	}
 	err_tmpl := parsedTemplate.Execute(w, nil)
 	if err_tmpl != nil {
