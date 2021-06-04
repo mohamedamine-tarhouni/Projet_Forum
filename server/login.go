@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	cryptage "./crypt"
+	render "./renders"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -108,116 +109,11 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
 }
 
-func renderTemplate_verif(w http.ResponseWriter, r *http.Request) {
-	println(r.URL.Path)
-	_, err := r.Cookie("logged-in")
-	if err != nil {
-		http.SetCookie(w, &http.Cookie{
-			Name:  "logged-in",
-			Value: "0",
-			Path:  "/",
-		})
-
-	}
-	parsedTemplate, _ := template.ParseFiles("./template/Presentation.html")
-	err_tmpl := parsedTemplate.Execute(w, nil)
-	if err_tmpl != nil {
-		log.Println("Error executing template :", err_tmpl)
-		return
-	}
-
-}
-
-func renderTemplate_accueil(w http.ResponseWriter, r *http.Request) {
-	c, err := r.Cookie("logged-in")
-	if err != nil {
-		http.SetCookie(w, &http.Cookie{
-			Name:  "logged-in",
-			Value: "0",
-			Path:  "/",
-		})
-		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
-		return
-	}
-	if r.URL.Path == "/logout.html" {
-		http.SetCookie(w, &http.Cookie{
-			Name:  "logged-in",
-			Value: "0",
-			Path:  "/",
-		})
-		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
-	}
-	println(c.Value)
-	parsedTemplate, _ := template.ParseFiles("./template/Accueil.html")
-	err_tmpl := parsedTemplate.Execute(w, c)
-	if err_tmpl != nil {
-		log.Println("Error executing template :", err_tmpl)
-		return
-	}
-}
-func Create_Data() {
-	database := initdatabase("./Forum_Final.db")
-	query_user := `CREATE TABLE IF NOT EXISTS Utilisateur (
-		ID_user    INTEGER            PRIMARY KEY ASC AUTOINCREMENT,
-		Nom        STRING             NOT NULL,
-		PRENOM     STRING             NOT NULL,
-		MAIL       [STRING UNIQUENOT] NOT NULL
-									  UNIQUE,
-		PASSWORD   STRING             NOT NULL,
-		User_name  STRING             NOT NULL
-									  UNIQUE,
-		Birth_Date DATE,
-		genre      STRING
-	);					`
-	query_post := `CREATE TABLE IF NOT EXISTS Post (
-		ID_post     INTEGER       PRIMARY KEY AUTOINCREMENT,
-		Title       STRING (70),
-		ID_Cat                    REFERENCES Categorie (ID_Cat) ON DELETE CASCADE
-																ON UPDATE CASCADE,
-		Description STRING (2000) NOT NULL,
-		ID_user                   REFERENCES Utilisateur (ID_user) ON DELETE CASCADE
-																   ON UPDATE CASCADE,
-		Approval    BOOLEAN       NOT NULL
-	);					`
-	query_react := `CREATE TABLE IF NOT EXISTS  Reaction (
-		ID_react INTEGER  PRIMARY KEY AUTOINCREMENT,
-		ID_user           REFERENCES Utilisateur (ID_user) ON DELETE CASCADE
-														   ON UPDATE CASCADE,
-		ID_Post           REFERENCES Post (ID_post) ON DELETE CASCADE
-													ON UPDATE CASCADE,
-		value    BOOLEAN  NOT NULL,
-		date     DATETIME NOT NULL
-	);					`
-	query_comment := `CREATE TABLE IF NOT EXISTS Commentaire (
-		ID_com  INTEGER       PRIMARY KEY AUTOINCREMENT,
-		ID_Post               REFERENCES Post (ID_post) ON DELETE CASCADE
-														ON UPDATE CASCADE,
-		ID_user               REFERENCES Utilisateur (ID_user) ON DELETE CASCADE
-															   ON UPDATE CASCADE,
-		Date    DATETIME,
-		Texte   STRING (2000) NOT NULL
-	);					`
-	query_category := `CREATE TABLE IF NOT EXISTS  Categorie (
-		ID_Cat  INTEGER PRIMARY KEY AUTOINCREMENT
-						NOT NULL,
-		Lib_Cat STRING  NOT NULL
-	);					`
-	//creation du table Utilisateur
-	_, _ = database.Exec(query_user)
-	//creation du table Reaction
-	_, _ = database.Exec(query_react)
-	//creation du table Post
-	_, _ = database.Exec(query_post)
-	//creation du table Commentaire
-	_, _ = database.Exec(query_comment)
-	//creation du table Categorie
-	_, _ = database.Exec(query_category)
-	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
-}
 func Login() {
-	Create_Data()
-	http.HandleFunc("/", renderTemplate_accueil)
-	http.HandleFunc("/Accueil.html", renderTemplate_accueil)
+	// forum.forum()
+	render.Create_Data()
+	http.HandleFunc("/", render.RenderTemplate_accueil)
+	http.HandleFunc("/Accueil.html", render.RenderTemplate_accueil)
 	http.HandleFunc("/creation_compte.html", renderTemplate_creation)
 	http.HandleFunc("/login.html", renderTemplate_login)
 	fs := http.FileServer(http.Dir("./assets/"))

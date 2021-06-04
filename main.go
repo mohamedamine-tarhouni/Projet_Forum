@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-	// creation.Creation()
+	connexion.Forum()
 	connexion.Login()
 	err := http.ListenAndServe(Host+":"+Port, nil)
 	if err != nil {
