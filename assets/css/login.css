@@ -3,13 +3,16 @@ body {
     padding: 0;
     background-color: #FFFEEE;
     font-family: 'Arial';
+    align-items: center;
 }
 
 .login {
+    align-items: center;
     width: 382px;
     overflow: hidden;
     margin: auto;
-    margin: 20 0 0 450px;
+    /* margin: 20 0 0 450px; */
+    margin-top: 2%;
     padding: 80px;
     border: 2px solid rgb(209, 204, 204);
     background: white;
@@ -25,12 +28,13 @@ h2 {
 }
 
 label {
-    color: black;
-    font-size: 15px;
+    color: rgb(0, 128, 85);
+    font-size: 17px;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .Mail {
-    width: 300px;
+    width: 350px;
     height: 30px;
     border: none;
     border-radius: 3px;
@@ -40,7 +44,7 @@ label {
 }
 
 .MDP {
-    width: 300px;
+    width: 350px;
     height: 30px;
     border: none;
     border-radius: 3px;
@@ -50,16 +54,23 @@ label {
 }
 
 #log {
-    width: 300px;
+    width: 350px;
     height: 30px;
     border: none;
     border-radius: 17px;
     padding-left: 7px;
     background-color: rgb(152, 194, 152);
     color: white;
+    text-align: center;
+    margin-top: 17px;
 }
 
 span {
-    color: rgb(5, 0, 0);
-    font-size: 17px;
+    color: black;
+    font-size: 13px;
+    margin-right: 250px;
+}
+
+a {
+    color: #446457;
 }
