@@ -24,13 +24,11 @@ func Create_Data() {
 	);					`
 	query_post := `CREATE TABLE IF NOT EXISTS Post (
 		ID_post     INTEGER       PRIMARY KEY AUTOINCREMENT,
-		Title       STRING (70),
-		ID_Cat                    REFERENCES Categorie (ID_Cat) ON DELETE CASCADE
-																ON UPDATE CASCADE,
+		Title       STRING (70)   NOT NULL,
+		Categorie   STRING (30)   NOT NULL,
 		Description STRING (2000) NOT NULL,
 		ID_user                   REFERENCES Utilisateur (ID_user) ON DELETE CASCADE
-																   ON UPDATE CASCADE,
-		Approval    BOOLEAN       NOT NULL
+																   ON UPDATE CASCADE   
 	);					`
 	query_react := `CREATE TABLE IF NOT EXISTS  Reaction (
 		ID_react INTEGER  PRIMARY KEY AUTOINCREMENT,

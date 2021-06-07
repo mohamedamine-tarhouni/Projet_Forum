@@ -23,6 +23,11 @@ func RenderTemplate_accueil(w http.ResponseWriter, r *http.Request) {
 			Value: "0",
 			Path:  "/",
 		})
+		http.SetCookie(w, &http.Cookie{
+			Name:   "UN",
+			MaxAge: -1,
+			Path:   "/",
+		})
 		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 	}
 	println(c.Value)

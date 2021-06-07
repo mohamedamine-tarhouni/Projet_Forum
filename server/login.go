@@ -11,21 +11,6 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func select_password(db *sql.DB, address string) string {
-	query := "SELECT PASSWORD FROM Utilisateur WHERE MAIL='" + address + "'"
-	result, err := db.Query(query)
-	if err != nil {
-		println("utilisateur n'existe pas")
-	}
-	var PASSWORD string
-	for result.Next() {
-		result.Scan(&PASSWORD)
-		defer db.Close()
-		_, _ = db.Exec("PRAGMA journal_mode=WAL;")
-		return PASSWORD
-	}
-	return "0"
-}
 func initdatabase(database string) *sql.DB {
 	db, err := sql.Open("sqlite3", database)
 	if err != nil {
@@ -35,7 +20,7 @@ func initdatabase(database string) *sql.DB {
 	return db
 }
 func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
-
+	println(r.URL.Path)
 	parsedTemplate, _ := template.ParseFiles("./template/creation_compte.html")
 	//Call to ParseForm makes form fields available.
 	err := r.ParseForm()
@@ -87,16 +72,23 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	}
 	MDP := r.PostFormValue("MDP")
 	Mail := r.PostFormValue("Mail")
-	password := select_password(database, Mail)
+	password := render.Select_password(database, Mail)
 	defer database.Close()
 	println(password)
 	if password != "0" {
 		if cryptage.Verif(MDP, password) {
+			username := render.Select_Username(database, Mail)
 			http.SetCookie(w, &http.Cookie{
 				Name:  "logged-in",
 				Value: "1",
 				Path:  "/",
 			})
+			http.SetCookie(w, &http.Cookie{
+				Name:  "UN",
+				Value: username,
+				Path:  "/",
+			})
+			println(username)
 			http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 			println("tout est bon")
 		} else {
@@ -112,7 +104,6 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login() {
-	// forum.forum()
 	render.Create_Data()
 	http.HandleFunc("/", render.RenderTemplate_accueil)
 	http.HandleFunc("/Accueil.html", render.RenderTemplate_accueil)
