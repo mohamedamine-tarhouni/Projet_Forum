@@ -40,6 +40,7 @@ func Select_ID(db *sql.DB, Username string) int {
 }
 
 func Select_Posts(db *sql.DB, cat string) []Post {
+	// query := "SELECT * FROM Post WHERE Categorie='informatique'"
 	query := "SELECT * FROM Post WHERE Categorie='" + cat + "'"
 	result, err := db.Query(query)
 	if err != nil {
@@ -52,20 +53,20 @@ func Select_Posts(db *sql.DB, cat string) []Post {
 	var Category string
 	var Description string
 	var ID_user int
-	var Approval bool
+	// i := 0
 	for result.Next() {
 		var Post Post
-		result.Scan(&ID, &Title, &Category, &Description, &ID_user, &Approval)
+		result.Scan(&ID, &Title, &Category, &Description, &ID_user)
 		Post.ID_Post = ID
 		Post.Title = Title
 		Post.Description = Description
-		Post.user = select_user(db, ID_user)
+		Post.Category = Category
+		Post.User = select_user(db, ID_user)
 		posts = append(posts, Post)
 		// defer db.Close()
 		_, _ = db.Exec("PRAGMA journal_mode=WAL;")
-		return posts
 	}
-	return nil
+	return posts
 }
 
 func select_user(db *sql.DB, ID int) USER {

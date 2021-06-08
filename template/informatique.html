@@ -21,16 +21,16 @@
 </header>
 
 <body>
-
+    {{range .Posts}}
     <div class="container">
         <div class="profil">
-            <p> Username</p>
+            <p> {{.User.User_name}}</p>
         </div>
         <div class="profil">
-            <p> Title</p>
+            <p> {{.Title}}</p>
         </div>
         <div class="description_text">
-            <p> Description</p>
+            <p> {{.Description}}</p>
         </div>
         <div class="image">
             <img src="../assets/img/Campus-Ynov-Nanterre.jpg">
@@ -45,7 +45,7 @@
         <button>Post a New Comment</button>
 
     </div>
-
+    {{end}}
 </body>
 
 </html>

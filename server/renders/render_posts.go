@@ -17,7 +17,19 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	link := "./template" + r.URL.Path
 	parsedTemplate, _ := template.ParseFiles(link)
 	Posts = Select_Posts(database, "informatique")
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	i := 0
+	for range Posts {
+		println("ID POST : ", Posts[i].ID_Post)
+		println("ID USER : ", Posts[i].User.ID)
+		println("USERNAME : ", Posts[i].User.User_name)
+		println("CAT : ", Posts[i].Category)
+		println("Desc : ", Posts[i].Description)
+		println("Title : ", Posts[i].Title)
+		i++
+	}
+	var data Data
+	data.Posts = Posts
+	err_tmpl := parsedTemplate.Execute(w, data)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return
