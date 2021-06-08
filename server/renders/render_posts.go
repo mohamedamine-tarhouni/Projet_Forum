@@ -12,6 +12,10 @@ var Posts []Post
 var comment string
 
 func Render_Posts(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("logged-in")
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
 	if err != nil {
 		log.Fatal(err)
@@ -50,6 +54,7 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	var data Data
 	data.Posts = Posts
 	data.Category = "informatique"
+	data.Status = c.Value
 	err_tmpl := parsedTemplate.Execute(w, data)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
@@ -113,7 +118,6 @@ func Render_commenting(w http.ResponseWriter, r *http.Request) {
 	ID := Select_ID(database, c.Value)
 	// println(comment)
 	i, err := strconv.Atoi(comment)
-	println("ID comment : ", i)
 	query_insert := "INSERT INTO Commentaire (ID_post,ID_user,Texte,Date) VALUES (?, ?,?,?)"
 	if text != "" {
 		comment = ""
@@ -122,6 +126,7 @@ func Render_commenting(w http.ResponseWriter, r *http.Request) {
 			println("erreur d'insertion")
 			log.Fatalf(err.Error())
 		}
+		http.Redirect(w, r, "/informatique.html", http.StatusFound)
 	}
 
 	parsedTemplate, _ := template.ParseFiles("./template/comment.html")

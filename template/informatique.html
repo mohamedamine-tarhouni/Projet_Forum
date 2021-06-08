@@ -14,9 +14,8 @@
     <h1>{{.Category}}</h1>
 
     <div class="navbar">
-        <a class="lien" href="Accueil.html"><button>Home</button></a>
-        <a class="lien" href="Post_{{.Category}}.html"><button>Post</button></a>
-        <a class="lien" href="comment.html"><button>comment</button></a>
+        <a class="lien" href="Accueil.html"><button>Home</button></a> {{if eq .Status "1"}}
+        <a class="lien" href="Post_{{.Category}}.html"><button>Post</button></a> {{end}}
 
     </div>
 
@@ -25,7 +24,7 @@
 <body>
     {{range .Posts}}
     <div class="container">
-        <div class="profil">
+        <div class="profil name">
             <p> {{.User.User_name}}</p>
         </div>
         <div class="profil">
@@ -37,12 +36,18 @@
         <div class="image">
             <img src="../assets/img/Campus-Ynov-Nanterre.jpg">
         </div>
-        {{range .Comments}}
-        <div class="description_text">
-            <h4>{{.User.User_name}}</h4>
-            <p>{{.Text}}</p>
+        <div class="Comments">
+            <h2>Comments : </h2>
+            {{range .Comments}}
+            <div class="Comment">
+                <div class="name_comment">
+
+                    <p>{{.User.User_name}}</p>
+                </div>
+                <p>{{.Text}}</p>
+            </div>
+            {{end}}
         </div>
-        {{end}}
     </div>
     <form method="POST">
 

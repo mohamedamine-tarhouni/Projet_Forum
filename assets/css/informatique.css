@@ -7,30 +7,32 @@ header {
     padding: 0 5%;
 }
 
-h1 {
-    color: black;
-    font-size: 50px;
-    font-family: "Montserrat", "sans sherif";
-}
-
-button {
-    background: white;
-    font-size: 20px;
-    font-family: "Montserrat", "sans sherif";
-    color: black;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease 0s;
-}
-
 button:hover {
     text-decoration: underline;
 }
 
-body {
-    background: url('../img/coding.jpg');
-    background-size: cover;
+.Comments {
+    border: solid 1px;
+}
+
+.Comments h2 {
+    color: red;
+}
+
+.name_comment p {
+    font-size: 25px !;
+    font-style: oblique;
+    color: blue;
+    font-weight: bold;
+}
+
+.name_comment:hover {
+    text-decoration: underline;
+}
+
+.Comment {
+    border: solid 1px;
+    word-wrap: break-word;
 }
 
 .container {
@@ -45,7 +47,7 @@ body {
 }
 
 .profil {
-    height: 50px;
+    /* height: 50px;*/
     background-color: white;
     width: 100%;
     float: right;
@@ -54,8 +56,6 @@ body {
 
 .description_text {
     margin-bottom: 0;
-    /* margin-top: 1.5em; */
-    /* white-space: pre-wrap; */
     margin-left: 0;
     margin-right: 0;
     word-wrap: break-word;
@@ -74,4 +74,67 @@ p {
 .forum {
     text-align: center;
     margin-top: 10px;
+}
+
+.name p {
+    font-size: 30px !important;
+    font-style: oblique;
+    color: blue;
+    font-weight: bold;
+}
+
+.name:hover {
+    text-decoration: underline;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+h1 {
+    color: black;
+    font-size: 50px;
+    font-family: "Montserrat", "sans sherif";
+}
+
+button {
+    background: white;
+    font-size: 20px;
+    font-family: "Montserrat", "sans sherif";
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+body {
+    background: url('../img/coding.jpg');
+    background-size: cover;
+}
+
+#posting {
+    height: 200px;
+    width: 400px;
+    margin-top: 15%;
+    margin-left: 38%;
+    font-size: 30px;
+    font-family: "Montserrat", "sans sherif";
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+}
+
+#log {
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    margin-left: 43%;
+    margin-top: 10%;
+    font-size: 10px;
 }

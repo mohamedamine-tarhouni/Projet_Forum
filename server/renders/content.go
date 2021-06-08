@@ -22,4 +22,5 @@ type Post struct {
 type Data struct {
 	Posts    []Post
 	Category string
+	Status   string
 }
