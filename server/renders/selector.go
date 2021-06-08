@@ -61,6 +61,8 @@ func Select_Posts(db *sql.DB, cat string) []Post {
 		Post.Title = Title
 		Post.Description = Description
 		Post.Category = Category
+		Post.Comments = Select_comment(db, ID)
+		// println(len(Post.Comments))
 		Post.User = select_user(db, ID_user)
 		posts = append(posts, Post)
 		// defer db.Close()
@@ -71,6 +73,7 @@ func Select_Posts(db *sql.DB, cat string) []Post {
 
 func select_user(db *sql.DB, ID int) USER {
 	ID_Str := strconv.Itoa(ID)
+
 	query := "SELECT User_name FROM Utilisateur WHERE ID_user='" + ID_Str + "'"
 	result, err := db.Query(query)
 	if err != nil {
@@ -103,4 +106,37 @@ func Select_password(db *sql.DB, address string) string {
 	}
 	return "0"
 }
-func Select_comment() {}
+func Select_comment(db *sql.DB, Post_id int) []Commentaire {
+	var comments []Commentaire
+	var commentaire Commentaire
+	query := "SELECT * FROM Commentaire WHERE ID_Post=?"
+	result, err := db.Query(query, Post_id)
+	if err != nil {
+		log.Fatal(err)
+		println("dans error")
+		println("Commentaire n'existe pas")
+		// commentaire.ID_Com = 0
+		// commentaire.Date = ""
+		// commentaire.Text = "NO COMMENTS"
+		// commentaire.User.ID = 0
+		// commentaire.User.User_name = ""
+		// comments = append(comments, commentaire)
+		// return comments
+	}
+	var ID_com int
+	var ID_Post int
+	var Date string
+	var Text string
+	var ID_User int
+	for result.Next() {
+		result.Scan(&ID_com, &ID_Post, &ID_User, &Date, &Text)
+		// println("dans le for")
+		commentaire.ID_Com = ID_com
+		// println("COMMENT ID: ", commentaire.ID_Com)
+		commentaire.Date = Date
+		commentaire.Text = Text
+		commentaire.User = select_user(db, ID_User)
+		comments = append(comments, commentaire)
+	}
+	return comments
+}

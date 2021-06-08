@@ -30,9 +30,7 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	if comment != "" {
 		http.Redirect(w, r, "/comment.html", http.StatusFound)
 	}
-
 	Posts = Select_Posts(database, "informatique")
-
 	// i := 0
 	// for range Posts {
 	// 	println("ID POST : ", Posts[i].ID_Post)
@@ -41,6 +39,12 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	// 	println("CAT : ", Posts[i].Category)
 	// 	println("Desc : ", Posts[i].Description)
 	// 	println("Title : ", Posts[i].Title)
+	// 	comments := Posts[i].Comments
+	// 	j := 0
+	// 	for range comments {
+	// 		println("COMMENT ID :", comments[j].ID_Com)
+	// 		j++
+	// 	}
 	// 	i++
 	// }
 	var data Data
@@ -74,9 +78,6 @@ func Render_posting(w http.ResponseWriter, r *http.Request) {
 	Title := r.PostFormValue("Title")
 	Description := r.PostFormValue("Description")
 	ID := Select_ID(database, c.Value)
-	println(Title)
-	println(Description)
-	println(ID)
 	query_insert := `INSERT INTO Post (Title,Categorie,Description,ID_user) VALUES (?, ?,?,?)`
 	if (Title != "") && (Description != "") {
 
@@ -109,15 +110,12 @@ func Render_commenting(w http.ResponseWriter, r *http.Request) {
 		// Handle error here via logging and then return
 	}
 	text := r.PostFormValue("comment")
-	println(text)
 	ID := Select_ID(database, c.Value)
-	println(ID)
 	// println(comment)
 	i, err := strconv.Atoi(comment)
 	println("ID comment : ", i)
-	query_insert := "INSERT INTO Commentaire (ID_Post,ID_user,Texte,Date) VALUES (?, ?,?,?)"
+	query_insert := "INSERT INTO Commentaire (ID_post,ID_user,Texte,Date) VALUES (?, ?,?,?)"
 	if text != "" {
-		println(text)
 		comment = ""
 		_, err_insert := database.Exec(query_insert, i, ID, text, "10/10/2020")
 		if err_insert != nil {

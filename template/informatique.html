@@ -37,18 +37,20 @@
         <div class="image">
             <img src="../assets/img/Campus-Ynov-Nanterre.jpg">
         </div>
+        {{range .Comments}}
         <div class="description_text">
-            <p>Commentaire</p>
+            <h4>{{.User.User_name}}</h4>
+            <p>{{.Text}}</p>
         </div>
-
+        {{end}}
     </div>
     <form method="POST">
 
         <div class="forum" action="/comment.html">
             <button>Like</button>
-            <a href="comment.html">
-                <button value="{{.ID_Post}}" name="comment" onclick="location.href='/{{.ID_Post}}'">Post a New Comment</button>
-            </a>
+
+            <button value="{{.ID_Post}}" name="comment">Post a New Comment</button>
+
 
         </div>
     </form>

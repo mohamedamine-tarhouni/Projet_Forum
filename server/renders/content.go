@@ -17,7 +17,7 @@ type Post struct {
 	Category    string
 	Description string
 	Img         string
-	comments    []Commentaire
+	Comments    []Commentaire
 }
 type Data struct {
 	Posts    []Post

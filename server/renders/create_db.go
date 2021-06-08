@@ -41,7 +41,7 @@ func Create_Data() {
 	);					`
 	query_comment := `CREATE TABLE IF NOT EXISTS Commentaire (
 		ID_com  INTEGER       PRIMARY KEY AUTOINCREMENT,
-		ID_Post               REFERENCES Post (ID_post) ON DELETE CASCADE
+		ID_post               REFERENCES Post (ID_post) ON DELETE CASCADE
 														ON UPDATE CASCADE,
 		ID_user               REFERENCES Utilisateur (ID_user) ON DELETE CASCADE
 															   ON UPDATE CASCADE,
