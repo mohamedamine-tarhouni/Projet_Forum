@@ -103,3 +103,4 @@ func Select_password(db *sql.DB, address string) string {
 	}
 	return "0"
 }
+func Select_comment() {}

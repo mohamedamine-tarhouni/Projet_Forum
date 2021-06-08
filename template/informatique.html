@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
-<title>Informatique</title>
+<title>{{.Category}}</title>
 
 
 <head>
+    <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="16x16" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../assets/css/informatique.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/{{.Category}}.css" />
 </head>
 <header>
 
-    <h1>Informatique</h1>
+    <h1>{{.Category}}</h1>
 
     <div class="navbar">
         <a class="lien" href="Accueil.html"><button>Home</button></a>
-        <a class="lien" href="Post_informatique.html"><button>Post</button></a>
+        <a class="lien" href="Post_{{.Category}}.html"><button>Post</button></a>
+        <a class="lien" href="comment.html"><button>comment</button></a>
 
     </div>
 
@@ -40,11 +42,16 @@
         </div>
 
     </div>
-    <div class="forum">
-        <button>Like</button>
-        <button>Post a New Comment</button>
+    <form method="POST">
 
-    </div>
+        <div class="forum" action="/comment.html">
+            <button>Like</button>
+            <a href="comment.html">
+                <button value="{{.ID_Post}}" name="comment" onclick="location.href='/{{.ID_Post}}'">Post a New Comment</button>
+            </a>
+
+        </div>
+    </form>
     {{end}}
 </body>
 

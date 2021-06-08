@@ -5,9 +5,10 @@ type USER struct {
 	User_name string
 }
 type Commentaire struct {
-	User USER
-	Date string
-	Text string
+	ID_Com int
+	User   USER
+	Date   string
+	Text   string
 }
 type Post struct {
 	ID_Post     int
@@ -19,5 +20,6 @@ type Post struct {
 	comments    []Commentaire
 }
 type Data struct {
-	Posts []Post
+	Posts    []Post
+	Category string
 }

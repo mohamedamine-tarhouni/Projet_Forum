@@ -4,31 +4,48 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 	"text/template"
 )
 
 var Posts []Post
+var comment string
 
 func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	link := "./template" + r.URL.Path
+	println(r.URL.Path)
 	parsedTemplate, _ := template.ParseFiles(link)
-	Posts = Select_Posts(database, "informatique")
-	i := 0
-	for range Posts {
-		println("ID POST : ", Posts[i].ID_Post)
-		println("ID USER : ", Posts[i].User.ID)
-		println("USERNAME : ", Posts[i].User.User_name)
-		println("CAT : ", Posts[i].Category)
-		println("Desc : ", Posts[i].Description)
-		println("Title : ", Posts[i].Title)
-		i++
+	err_forum := r.ParseForm()
+	if err_forum != nil {
+		print("Error\n")
+		// Handle error here via logging and then return
 	}
+	comment = r.PostFormValue("comment")
+	println(comment)
+	if comment != "" {
+		http.Redirect(w, r, "/comment.html", http.StatusFound)
+	}
+
+	Posts = Select_Posts(database, "informatique")
+
+	// i := 0
+	// for range Posts {
+	// 	println("ID POST : ", Posts[i].ID_Post)
+	// 	println("ID USER : ", Posts[i].User.ID)
+	// 	println("USERNAME : ", Posts[i].User.User_name)
+	// 	println("CAT : ", Posts[i].Category)
+	// 	println("Desc : ", Posts[i].Description)
+	// 	println("Title : ", Posts[i].Title)
+	// 	i++
+	// }
 	var data Data
 	data.Posts = Posts
+	data.Category = "informatique"
 	err_tmpl := parsedTemplate.Execute(w, data)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
@@ -75,4 +92,44 @@ func Render_posting(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+func Render_commenting(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("UN")
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	database, err := sql.Open("sqlite3", "./Forum_Final.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
+	err_forum := r.ParseForm()
+	if err_forum != nil {
+		print("Error\n")
+		// Handle error here via logging and then return
+	}
+	text := r.PostFormValue("comment")
+	println(text)
+	ID := Select_ID(database, c.Value)
+	println(ID)
+	// println(comment)
+	i, err := strconv.Atoi(comment)
+	println("ID comment : ", i)
+	query_insert := "INSERT INTO Commentaire (ID_Post,ID_user,Texte,Date) VALUES (?, ?,?,?)"
+	if text != "" {
+		println(text)
+		comment = ""
+		_, err_insert := database.Exec(query_insert, i, ID, text, "10/10/2020")
+		if err_insert != nil {
+			println("erreur d'insertion")
+			log.Fatalf(err.Error())
+		}
+	}
+
+	parsedTemplate, _ := template.ParseFiles("./template/comment.html")
+	err_tmpl := parsedTemplate.Execute(w, nil)
+	if err_tmpl != nil {
+		log.Println("Error executing template :", err_tmpl)
+		return
+	}
 }
