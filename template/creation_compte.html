@@ -95,6 +95,19 @@
                 <input id="MDP-input" class="MDP" name="MDP" type="password" value="" />
             </div>
             {{end}}
+            <!-- Confirmation du mot de passe -->
+            {{if eq .Err_Cpassword "1"}}
+            <div class="sign-in">
+                <label for="MDP-input">Confirm Password : </label>
+                <input id="MDP-input" class="MDP" name="CMDP" type="password" value="" />
+            </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="MDP-input" style="color:red">Confirm Password : It must be the same as Your Password </label>
+                <input id="MDP-input" class="MDP" name="CMDP" type="password" value="" />
+            </div>
+            {{end}}
+
             <!-- Date de naissance -->
             <label for="date">Birth date : </label>
 

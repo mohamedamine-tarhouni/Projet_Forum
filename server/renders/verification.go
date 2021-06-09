@@ -64,13 +64,19 @@ func verif_pass(password string, length int) string {
 	}
 	return "1"
 }
-
-func Verif(first_name string, last_name string, Address string, password string, User_name string) Errors {
+func verif_confirm(password, Cpassword string) string {
+	if password != Cpassword {
+		return "0"
+	}
+	return "1"
+}
+func Verif(first_name string, last_name string, Address string, password string, Cpassword string, User_name string) Errors {
 	var Err Errors
 	Err.Err_name = verif_nom(first_name)
 	Err.Err_surname = verif_nom(last_name)
 	Err.Err_User_name = verif_pass(User_name, 2)
 	Err.Err_Email = verif_mail(Address)
 	Err.Err_password = verif_pass(password, 8)
+	Err.Err_Cpassword = verif_confirm(password, Cpassword)
 	return Err
 }

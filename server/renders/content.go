@@ -30,4 +30,5 @@ type Errors struct {
 	Err_User_name string
 	Err_Email     string
 	Err_password  string
+	Err_Cpassword string
 }

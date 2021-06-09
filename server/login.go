@@ -35,6 +35,7 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 	Nom := r.PostFormValue("last_name")
 	User_name := r.PostFormValue("User_name")
 	MDP := r.PostFormValue("MDP")
+	CMDP := r.PostFormValue("CMDP")
 	Mail := r.PostFormValue("Mail")
 	Date := r.PostFormValue("date_naissance")
 	Sexe := r.PostFormValue("genre")
@@ -48,16 +49,14 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 
 	// //on insère dans la base si les valeurs ne sont pas vide
 	if verif_insert {
-		Errors = render.Verif(Prenom, Nom, Mail, MDP, User_name)
-		if Errors.Err_name == "1" && Errors.Err_surname == "1" && Errors.Err_Email == "1" && Errors.Err_password == "1" && Errors.Err_User_name == "1" {
+		Errors = render.Verif(Prenom, Nom, Mail, MDP, CMDP, User_name)
+		if Errors.Err_name == "1" && Errors.Err_surname == "1" && Errors.Err_Email == "1" && Errors.Err_password == "1" && Errors.Err_User_name == "1" && Errors.Err_Cpassword == "1" {
 			MDP_Hash, _ := cryptage.HashPassword(MDP)
 			_, err_insert := database.Exec(query_insert, Nom, Prenom, Mail, MDP_Hash, User_name, Date, Sexe)
 			if err_insert != nil {
-				// println("erreur d'insertion")
-				// log.Fatal(err)
 				Errors.Err_Email = "3"
 			} else {
-				http.Redirect(w, r, "/Accueil.html", http.StatusFound)
+				http.Redirect(w, r, "/login.html", http.StatusFound)
 			}
 		}
 	} else {
@@ -66,6 +65,7 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 		Errors.Err_User_name = "1"
 		Errors.Err_Email = "1"
 		Errors.Err_password = "1"
+		Errors.Err_Cpassword = "1"
 	}
 
 	defer database.Close()
