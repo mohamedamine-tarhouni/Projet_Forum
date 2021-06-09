@@ -12,6 +12,7 @@ import (
 )
 
 func initdatabase(database string) *sql.DB {
+
 	db, err := sql.Open("sqlite3", database)
 	if err != nil {
 		log.Fatal(err)
@@ -20,7 +21,7 @@ func initdatabase(database string) *sql.DB {
 	return db
 }
 func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
-	println(r.URL.Path)
+	var Errors render.Errors
 	parsedTemplate, _ := template.ParseFiles("./template/creation_compte.html")
 	//Call to ParseForm makes form fields available.
 	err := r.ParseForm()
@@ -28,6 +29,7 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 		print("Error\n")
 		// Handle error here via logging and then return
 	}
+
 	//les valeurs du formulaire
 	Prenom := r.PostFormValue("first_name")
 	Nom := r.PostFormValue("last_name")
@@ -36,25 +38,40 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 	Mail := r.PostFormValue("Mail")
 	Date := r.PostFormValue("date_naissance")
 	Sexe := r.PostFormValue("genre")
-	println(Date)
-	println(Sexe)
+	button := r.PostFormValue("button_submit")
+	verif_insert := button != ""
+
 	//ouverture de la base (on la crée si elle n'existe pas)
 	database := initdatabase("./Forum_Final.db")
 	//insertion des valeurs dans la base avec la requete INSERT INTO
 	query_insert := `INSERT INTO Utilisateur (Nom, PRENOM,MAIL,PASSWORD,User_name,Birth_Date,genre) VALUES (?, ?,?,?,?,?,?)`
-	if Nom != "" && Prenom != "" && Mail != "" && MDP != "" && User_name != "" {
-		MDP_Hash, _ := cryptage.HashPassword(MDP)
-		// //on insère dans la base si les valeurs ne sont pas vide
-		_, err := database.Exec(query_insert, Nom, Prenom, Mail, MDP_Hash, User_name, Date, Sexe)
-		if err != nil {
-			println("erreur d'insertion")
-			log.Fatal(err)
+
+	// //on insère dans la base si les valeurs ne sont pas vide
+	if verif_insert {
+		Errors = render.Verif(Prenom, Nom, Mail, MDP, User_name)
+		if Errors.Err_name == "1" && Errors.Err_surname == "1" && Errors.Err_Email == "1" && Errors.Err_password == "1" && Errors.Err_User_name == "1" {
+			MDP_Hash, _ := cryptage.HashPassword(MDP)
+			_, err_insert := database.Exec(query_insert, Nom, Prenom, Mail, MDP_Hash, User_name, Date, Sexe)
+			if err_insert != nil {
+				// println("erreur d'insertion")
+				// log.Fatal(err)
+				Errors.Err_Email = "3"
+			} else {
+				http.Redirect(w, r, "/Accueil.html", http.StatusFound)
+			}
 		}
+	} else {
+		Errors.Err_name = "1"
+		Errors.Err_surname = "1"
+		Errors.Err_User_name = "1"
+		Errors.Err_Email = "1"
+		Errors.Err_password = "1"
 	}
+
 	defer database.Close()
 	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
 	// defer statement.Close()
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	err_tmpl := parsedTemplate.Execute(w, Errors)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return
@@ -73,7 +90,7 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	MDP := r.PostFormValue("MDP")
 	Mail := r.PostFormValue("Mail")
 	password := render.Select_password(database, Mail)
-	defer database.Close()
+
 	println(password)
 	if password != "0" {
 		if cryptage.Verif(MDP, password) {
@@ -88,6 +105,7 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 				Value: username,
 				Path:  "/",
 			})
+
 			println(username)
 			http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 			println("tout est bon")
@@ -95,6 +113,7 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 			println("faux mot de passe")
 		}
 	}
+	defer database.Close()
 	err_tmpl := parsedTemplate.Execute(w, nil)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)

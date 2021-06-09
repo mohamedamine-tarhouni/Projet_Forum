@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    {{$msg := .}}
     <title>formulaire d'inscription</title>
     <link rel="icon" href="../assets/img/icon.jpg" type="image/gif" sizes="16x16" />
     <link rel="stylesheet" type="text/css" href="../assets/css/creation_compte.css" />
@@ -11,36 +12,89 @@
 
 <body>
     <div class="inputs">
-        <form method="POST" class="Register" name="Register_form" onsubmit="return verif()">
+        <form method="POST" class="Register" name="Register_form">
             <h1>Sign Up</h1>
             <!-- Saisie de Prenom -->
+            {{if eq .Err_name "1"}}
             <div class="sign-in">
                 <label for="name-input"> First Name : </label>
                 <input id="name-input" class="first_name" name="first_name" type="text" value="" />
             </div>
-
+            {{else if eq .Err_name "0"}}
+            <div class="sign-in">
+                <label for="name-input" style="color:red"> First Name : It Must Contain Atleast 2 characters !! </label>
+                <input id="name-input" class="first_name" name="first_name" type="text" value="" />
+            </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="name-input" style="color:Blue"> First Name : It must Contain only Alphabetic letters !!  </label>
+                <input id="name-input" class="first_name" name="first_name" type="text" value="" />
+            </div>
+            {{end}}
             <!-- Saisie de Nom -->
+            {{if eq .Err_surname "1"}}
             <div class="sign-in">
                 <label for="last_name-input"> Last Name : </label>
                 <input id="last_name-input" class="last_name" name="last_name" type="text" value="" />
             </div>
-
+            {{else if eq .Err_surname "0"}}
+            <div class="sign-in">
+                <label for="last_name-input" style="color:red"> Last Name : It Must Contain Atleast 2 characters !! </label>
+                <input id="last_name-input" class="last_name" name="last_name" type="text" value="" />
+            </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="last_name-input" style="color:Blue"> Last Name : It must Contain only Alphabetic letters !! </label>
+                <input id="last_name-input" class="last_name" name="last_name" type="text" value="" />
+            </div>
+            {{end}}
             <!-- Saisie du Mail -->
+            {{if eq .Err_Email "1"}}
             <div class="sign-in">
                 <label for="Mail-input"> E-mail : </label>
                 <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
             </div>
-            <!-- Saisie du l'addresse -->
+            {{else if eq .Err_Email "0"}}
+            <div class="sign-in">
+                <label for="Mail-input" style="color:red"> E-mail : It Must Contain Atleast 3 characters </label>
+                <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
+            </div>
+            {{else if eq .Err_Email "3"}}
+            <div class="sign-in">
+                <label for="Mail-input" style="color:red"> E-mail : The Submited Mail Already Exists </label>
+                <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
+            </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="Mail-input" style="color:Blue"> E-mail : The Form Must Be (Name@Domain) </label>
+                <input id="Mail-input" class="Mail" name="Mail" type="text" value="" />
+            </div>
+            {{end}}
+            <!-- Saisie du nom d'utilisateur -->
+            {{if eq .Err_User_name "1"}}
             <div class="sign-in">
                 <label for="User_name"> User name : </label>
                 <input id="User_name" class="User_name" name="User_name" type="text" value="" />
             </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="User_name" style="color:red"> User name : It Must Contain Atleast 2 characters</label>
+                <input id="User_name" class="User_name" name="User_name" type="text" value="" />
+            </div>
+            {{end}}
 
             <!-- Saisie du Mot de passe -->
+            {{if eq .Err_password "1"}}
             <div class="sign-in">
                 <label for="MDP-input"> Password : </label>
                 <input id="MDP-input" class="MDP" name="MDP" type="password" value="" />
             </div>
+            {{else}}
+            <div class="sign-in">
+                <label for="MDP-input" style="color:red"> Password : It Must Contain Atleast 8 characters</label>
+                <input id="MDP-input" class="MDP" name="MDP" type="password" value="" />
+            </div>
+            {{end}}
             <!-- Date de naissance -->
             <label for="date">Birth date : </label>
 
@@ -58,7 +112,7 @@
         ><input type="radio" name="genre" value="Custom" />Custom</label
       >
       <div class="input-submit" align="center">
-        <input class="submit" type="submit" value="Create Account" />
+        <input class="submit" type="submit" name="button_submit" value="Create Account" />
         <!-- <input type="button" value="Submit" onsubmit="return verif()" /> -->
       </div>
       

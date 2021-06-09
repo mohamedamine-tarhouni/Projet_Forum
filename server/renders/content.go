@@ -24,3 +24,10 @@ type Data struct {
 	Category string
 	Status   string
 }
+type Errors struct {
+	Err_name      string
+	Err_surname   string
+	Err_User_name string
+	Err_Email     string
+	Err_password  string
+}
