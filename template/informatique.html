@@ -2,8 +2,8 @@
 <html>
 <title>{{.Category}}</title>
 
-
 <head>
+    {{$Stat := .Status}}
     <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="16x16" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,17 +49,17 @@
             {{end}}
         </div>
     </div>
+    {{if eq $Stat "1"}}
     <form method="POST">
-
-        <div class="forum" action="/comment.html">
+        <div class="forum">
             <button>Like</button>
-
             <button value="{{.ID_Post}}" name="comment">Post a New Comment</button>
-
-
         </div>
     </form>
-    {{end}}
+    {{else}}
+    <div class="forum">
+        <a class="lien" href="login.html"><button>Login to be able to comment</button></a>
+    </div>{{end}} {{end}}
 </body>
 
 </html>
