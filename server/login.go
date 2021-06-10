@@ -91,7 +91,7 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 	Mail := r.PostFormValue("Mail")
 	password := render.Select_password(database, Mail)
 
-	println(password)
+	// println(password)
 	if password != "0" {
 		if cryptage.Verif(MDP, password) {
 			username := render.Select_Username(database, Mail)
@@ -105,8 +105,6 @@ func renderTemplate_login(w http.ResponseWriter, r *http.Request) {
 				Value: username,
 				Path:  "/",
 			})
-
-			println(username)
 			http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 			println("tout est bon")
 		} else {

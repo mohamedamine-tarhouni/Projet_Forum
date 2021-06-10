@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Ajouter Commentaire</title>
+<title>Add Comment To {{.}}</title>
 
 
 <head>
@@ -11,11 +11,11 @@
 </head>
 <header>
 
-    <h1>Nouveau Commentaire Pour l'informatique</h1>
+    <h1>Nouveau Commentaire Pour {{.}}</h1>
 
     <div class="navbar">
         <a class="lien" href="Accueil.html"><button>Home</button></a>
-        <a class="lien" href="informatique.html"><button>Posts</button></a>
+        <a class="lien" href="{{.}}.html"><button>Go Back to {{.}} Posts</button></a>
 
     </div>
 
@@ -25,8 +25,8 @@
     <form method="POST">
         <!-- Saisie du Commentaire -->
         <div class="comment">
-            <label for="comment-input"> Commentaire :   </label>
-            <input id="comment-input" class="comment" name="comment" type="text" value="" placeholder="Saisir Votre Commentaire" />
+            <label for="comment-input"> Your Comment :   </label>
+            <input id="comment-input" class="comment" name="comment" type="text" value="" placeholder="Comment" />
         </div>
     </form>
 

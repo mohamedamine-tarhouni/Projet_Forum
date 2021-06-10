@@ -30,7 +30,7 @@ func RenderTemplate_accueil(w http.ResponseWriter, r *http.Request) {
 		})
 		http.Redirect(w, r, "/Accueil.html", http.StatusFound)
 	}
-	println(c.Value)
+	// println(c.Value)
 	parsedTemplate, _ := template.ParseFiles("./template/Accueil.html")
 	err_tmpl := parsedTemplate.Execute(w, c)
 	if err_tmpl != nil {

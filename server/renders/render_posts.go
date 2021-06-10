@@ -5,12 +5,21 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"text/template"
 )
 
 var Posts []Post
 var comment string
 
+func Render_Categories(w http.ResponseWriter, r *http.Request) {
+	parsedTemplate, _ := template.ParseFiles("./template/Posts.html")
+	err_tmpl := parsedTemplate.Execute(w, nil)
+	if err_tmpl != nil {
+		log.Println("Error executing template :", err_tmpl)
+		return
+	}
+}
 func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("logged-in")
 	if err != nil {
@@ -20,9 +29,11 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	link := "./template" + r.URL.Path
-	println(r.URL.Path)
+	category_link := r.URL.Path
+	category_link = strings.ReplaceAll(category_link, ".html", "")
+	Categorie := category_link[1:]
+	println(Categorie)
+	link := "./template" + "/categorie.html"
 	parsedTemplate, _ := template.ParseFiles(link)
 	err_forum := r.ParseForm()
 	if err_forum != nil {
@@ -30,11 +41,12 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 		// Handle error here via logging and then return
 	}
 	comment = r.PostFormValue("comment")
-	println(comment)
+	// println(comment)
 	if comment != "" {
-		http.Redirect(w, r, "/comment.html", http.StatusFound)
+		comment_link := "/comment_" + Categorie + ".html"
+		http.Redirect(w, r, comment_link, http.StatusFound)
 	}
-	Posts = Select_Posts(database, "informatique")
+	Posts = Select_Posts(database, Categorie)
 	// i := 0
 	// for range Posts {
 	// 	println("ID POST : ", Posts[i].ID_Post)
@@ -53,7 +65,7 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	// }
 	var data Data
 	data.Posts = Posts
-	data.Category = "informatique"
+	data.Category = Categorie
 	data.Status = c.Value
 	err_tmpl := parsedTemplate.Execute(w, data)
 	if err_tmpl != nil {
@@ -66,8 +78,12 @@ func Render_posting(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
+	category_link := r.URL.Path
+	category_link = strings.ReplaceAll(category_link, ".html", "")
+	Categorie := category_link[6:]
+	println(Categorie)
 	// var Posting Post
-	link := "./template" + r.URL.Path
+	link := "./template" + "/Post_informatique.html"
 	println(link)
 	parsedTemplate, _ := template.ParseFiles(link)
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
@@ -85,14 +101,13 @@ func Render_posting(w http.ResponseWriter, r *http.Request) {
 	ID := Select_ID(database, c.Value)
 	query_insert := `INSERT INTO Post (Title,Categorie,Description,ID_user) VALUES (?, ?,?,?)`
 	if (Title != "") && (Description != "") {
-
-		_, err_insert := database.Exec(query_insert, Title, "informatique", Description, ID)
+		_, err_insert := database.Exec(query_insert, Title, Categorie, Description, ID)
 		if err_insert != nil {
 			println("erreur d'insertion")
 			log.Fatalf(err.Error())
 		}
 	}
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	err_tmpl := parsedTemplate.Execute(w, Categorie)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return
@@ -104,6 +119,10 @@ func Render_commenting(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
+	category_link := r.URL.Path
+	category_link = strings.ReplaceAll(category_link, ".html", "")
+	Categorie := category_link[9:]
+	println(Categorie)
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
 	if err != nil {
 		log.Fatal(err)
@@ -126,11 +145,12 @@ func Render_commenting(w http.ResponseWriter, r *http.Request) {
 			println("erreur d'insertion")
 			log.Fatalf(err.Error())
 		}
-		http.Redirect(w, r, "/informatique.html", http.StatusFound)
+		redirection_link := "/" + Categorie + ".html"
+		http.Redirect(w, r, redirection_link, http.StatusFound)
 	}
 
 	parsedTemplate, _ := template.ParseFiles("./template/comment.html")
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	err_tmpl := parsedTemplate.Execute(w, Categorie)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return

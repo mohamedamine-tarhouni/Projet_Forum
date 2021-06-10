@@ -33,16 +33,6 @@ func verif_nom(name string) string {
 	return "1"
 }
 
-// func verif_mail(Address string) bool {
-// 	_, err := mail.ParseAddress(Address)
-
-// 	if err != nil {
-// 		//fmt.Println(err)
-// 		return false
-// 	}
-
-// 	return true
-// }
 func verif_mail(Address string) string {
 	if len(Address) < 3 {
 		return "0"
