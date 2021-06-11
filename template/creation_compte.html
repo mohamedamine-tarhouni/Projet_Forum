@@ -76,6 +76,11 @@
                 <label for="User_name"> User name : </label>
                 <input id="User_name" class="User_name" name="User_name" type="text" value="" />
             </div>
+            {{else if eq .Err_User_name "3"}}
+            <div class="sign-in">
+                <label for="User_name" style="color:red"> User name : The Username You Submited Already Exists</label>
+                <input id="User_name" class="User_name" name="User_name" type="text" value="" />
+            </div>
             {{else}}
             <div class="sign-in">
                 <label for="User_name" style="color:red"> User name : It Must Contain Atleast 2 characters</label>

@@ -38,7 +38,31 @@ func Select_ID(db *sql.DB, Username string) int {
 	}
 	return -1
 }
-
+func Select_User_Posts(db *sql.DB, ID_user int) []Post {
+	query := "SELECT * FROM Post WHERE ID_user=?"
+	result, _ := db.Query(query, ID_user)
+	var posts []Post
+	var ID int
+	var Title string
+	var Category string
+	var Description string
+	var ID_u int
+	for result.Next() {
+		var Post Post
+		result.Scan(&ID, &Title, &Category, &Description, &ID_u)
+		Post.ID_Post = ID
+		Post.Title = Title
+		Post.Description = Description
+		Post.Category = Category
+		Post.Comments = Select_comment(db, ID)
+		// println(len(Post.Comments))
+		Post.User = select_user(db, ID_user)
+		posts = append(posts, Post)
+		// defer db.Close()
+		_, _ = db.Exec("PRAGMA journal_mode=WAL;")
+	}
+	return posts
+}
 func Select_Posts(db *sql.DB, cat string) []Post {
 	// query := "SELECT * FROM Post WHERE Categorie='informatique'"
 	query := "SELECT * FROM Post WHERE Categorie='" + cat + "'"
@@ -113,15 +137,7 @@ func Select_comment(db *sql.DB, Post_id int) []Commentaire {
 	result, err := db.Query(query, Post_id)
 	if err != nil {
 		log.Fatal(err)
-		println("dans error")
 		println("Commentaire n'existe pas")
-		// commentaire.ID_Com = 0
-		// commentaire.Date = ""
-		// commentaire.Text = "NO COMMENTS"
-		// commentaire.User.ID = 0
-		// commentaire.User.User_name = ""
-		// comments = append(comments, commentaire)
-		// return comments
 	}
 	var ID_com int
 	var ID_Post int

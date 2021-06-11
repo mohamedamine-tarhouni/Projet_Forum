@@ -24,7 +24,8 @@
     <nav>
         <h1>LES POSTS</h1>
         <div class="onglets">
-            <a href="./Accueil.html">Home</a>
+            <a href="./Accueil.html">Home</a> {{if eq .Value "1"}}
+            <a href="./user_posts.html">Your Posts</a> {{end}}
             <div class="content">
             </div>
         </div>

@@ -13,8 +13,16 @@ var Posts []Post
 var comment string
 
 func Render_Categories(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("logged-in")
+	if err != nil {
+		http.SetCookie(w, &http.Cookie{
+			Name:  "logged-in",
+			Value: "0",
+			Path:  "/",
+		})
+	}
 	parsedTemplate, _ := template.ParseFiles("./template/Posts.html")
-	err_tmpl := parsedTemplate.Execute(w, nil)
+	err_tmpl := parsedTemplate.Execute(w, c)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)
 		return
@@ -32,7 +40,6 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	category_link := r.URL.Path
 	category_link = strings.ReplaceAll(category_link, ".html", "")
 	Categorie := category_link[1:]
-	println(Categorie)
 	link := "./template" + "/categorie.html"
 	parsedTemplate, _ := template.ParseFiles(link)
 	err_forum := r.ParseForm()
@@ -47,22 +54,6 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, comment_link, http.StatusFound)
 	}
 	Posts = Select_Posts(database, Categorie)
-	// i := 0
-	// for range Posts {
-	// 	println("ID POST : ", Posts[i].ID_Post)
-	// 	println("ID USER : ", Posts[i].User.ID)
-	// 	println("USERNAME : ", Posts[i].User.User_name)
-	// 	println("CAT : ", Posts[i].Category)
-	// 	println("Desc : ", Posts[i].Description)
-	// 	println("Title : ", Posts[i].Title)
-	// 	comments := Posts[i].Comments
-	// 	j := 0
-	// 	for range comments {
-	// 		println("COMMENT ID :", comments[j].ID_Com)
-	// 		j++
-	// 	}
-	// 	i++
-	// }
 	var data Data
 	data.Posts = Posts
 	data.Category = Categorie
@@ -84,7 +75,6 @@ func Render_posting(w http.ResponseWriter, r *http.Request) {
 	println(Categorie)
 	// var Posting Post
 	link := "./template" + "/Post_informatique.html"
-	println(link)
 	parsedTemplate, _ := template.ParseFiles(link)
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
 	if err != nil {

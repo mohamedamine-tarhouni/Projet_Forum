@@ -54,7 +54,13 @@ func renderTemplate_creation(w http.ResponseWriter, r *http.Request) {
 			MDP_Hash, _ := cryptage.HashPassword(MDP)
 			_, err_insert := database.Exec(query_insert, Nom, Prenom, Mail, MDP_Hash, User_name, Date, Sexe)
 			if err_insert != nil {
-				Errors.Err_Email = "3"
+				username_verif := render.Select_ID(database, User_name)
+				if username_verif != -1 {
+					Errors.Err_User_name = "3"
+				} else {
+
+					Errors.Err_Email = "3"
+				}
 			} else {
 				http.Redirect(w, r, "/login.html", http.StatusFound)
 			}
