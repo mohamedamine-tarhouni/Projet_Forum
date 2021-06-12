@@ -23,4 +23,9 @@ func Forum() {
 	http.HandleFunc("/comment_jeux_videos.html", render.Render_commenting)
 	http.HandleFunc("/comment_geography.html", render.Render_commenting)
 	http.HandleFunc("/comment_music.html", render.Render_commenting)
+	http.HandleFunc("/informatique", render.Render_Upload)
+	http.HandleFunc("/culture", render.Render_Upload)
+	http.HandleFunc("/jeux_videos", render.Render_Upload)
+	http.HandleFunc("/music", render.Render_Upload)
+	http.HandleFunc("/geography", render.Render_Upload)
 }

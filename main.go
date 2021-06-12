@@ -11,7 +11,7 @@ import (
 
 const (
 	Host = "localhost"
-	Port = "2077"
+	Port = "2100"
 )
 
 func main() {

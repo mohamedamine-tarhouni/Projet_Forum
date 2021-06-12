@@ -134,4 +134,6 @@ func Login() {
 	http.HandleFunc("/login.html", renderTemplate_login)
 	fs := http.FileServer(http.Dir("./assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	fs_img := http.FileServer(http.Dir("./temp-images/"))
+	http.Handle("/temp-images/", http.StripPrefix("/temp-images/", fs_img))
 }

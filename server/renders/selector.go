@@ -46,15 +46,17 @@ func Select_User_Posts(db *sql.DB, ID_user int) []Post {
 	var Title string
 	var Category string
 	var Description string
+	var Image string
 	var ID_u int
 	for result.Next() {
 		var Post Post
-		result.Scan(&ID, &Title, &Category, &Description, &ID_u)
+		result.Scan(&ID, &Title, &Category, &Description, &ID_u, &Image)
 		Post.ID_Post = ID
 		Post.Title = Title
 		Post.Description = Description
 		Post.Category = Category
 		Post.Comments = Select_comment(db, ID)
+		Post.Img = Image
 		// println(len(Post.Comments))
 		Post.User = select_user(db, ID_user)
 		posts = append(posts, Post)
@@ -76,16 +78,18 @@ func Select_Posts(db *sql.DB, cat string) []Post {
 	var Title string
 	var Category string
 	var Description string
+	var Image string
 	var ID_user int
 	// i := 0
 	for result.Next() {
 		var Post Post
-		result.Scan(&ID, &Title, &Category, &Description, &ID_user)
+		result.Scan(&ID, &Title, &Category, &Description, &ID_user, &Image)
 		Post.ID_Post = ID
 		Post.Title = Title
 		Post.Description = Description
 		Post.Category = Category
 		Post.Comments = Select_comment(db, ID)
+		Post.Img = Image
 		// println(len(Post.Comments))
 		Post.User = select_user(db, ID_user)
 		posts = append(posts, Post)

@@ -65,38 +65,13 @@ func Render_Posts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func Render_posting(w http.ResponseWriter, r *http.Request) {
-	c, err := r.Cookie("UN")
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
 	category_link := r.URL.Path
 	category_link = strings.ReplaceAll(category_link, ".html", "")
 	Categorie := category_link[6:]
 	println(Categorie)
 	// var Posting Post
-	link := "./template" + "/Post_informatique.html"
+	link := "./template" + "/Post_categorie.html"
 	parsedTemplate, _ := template.ParseFiles(link)
-	database, err := sql.Open("sqlite3", "./Forum_Final.db")
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
-	err_forum := r.ParseForm()
-	if err_forum != nil {
-		print("Error\n")
-		// Handle error here via logging and then return
-	}
-	Title := r.PostFormValue("Title")
-	Description := r.PostFormValue("Description")
-	ID := Select_ID(database, c.Value)
-	query_insert := `INSERT INTO Post (Title,Categorie,Description,ID_user) VALUES (?, ?,?,?)`
-	if (Title != "") && (Description != "") {
-		_, err_insert := database.Exec(query_insert, Title, Categorie, Description, ID)
-		if err_insert != nil {
-			println("erreur d'insertion")
-			log.Fatalf(err.Error())
-		}
-	}
 	err_tmpl := parsedTemplate.Execute(w, Categorie)
 	if err_tmpl != nil {
 		log.Println("Error executing template :", err_tmpl)

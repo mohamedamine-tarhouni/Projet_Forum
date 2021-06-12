@@ -24,7 +24,7 @@
 <body>
     <div class="Post_Cat">
         <!-- <h2>Login Page</h2> -->
-        <form id="posting" method="POST" action="">
+        <form id="posting" method="POST" action="/{{.}}" enctype="multipart/form-data">
 
             <!-- Saisie du Titre -->
             <div class="new_post">
@@ -37,6 +37,10 @@
                 <label for="description-input"> Description  </label>
                 <textarea name="Description" id="description-input" class="description" placeholder="Description"></textarea>
                 <!-- <input id="MDP-input" class="MDP" name="MDP" type="password" value="" placeholder="Description" /> -->
+            </div>
+            <!-- Saisie du Description -->
+            <div class="new_post">
+                <input accept="image/*,image/heif,image/heic" class="mkhogb32" multiple="" type="file" role="button" name="Image">
             </div>
 
             <div>
