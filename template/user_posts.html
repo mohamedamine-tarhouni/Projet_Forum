@@ -33,9 +33,14 @@
         <div class="description_text">
             <p>{{.Description}}</p>
         </div>
+        {{if eq .Img ""}}
         <div class="image">
-            <img src="../assets/img/Campus-Ynov-Nanterre.jpg" />
         </div>
+        {{else}}
+        <div class="image">
+            <img src="../{{.Img}}" />
+        </div>
+        {{end}}
         <div class="Comments">
             <h2>Comments :</h2>
             {{range .Comments}}

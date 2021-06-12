@@ -21,8 +21,8 @@ nav {
 
 nav h1 {
     color: #000000;
-    font-family: 'Bitter', serif;
-    font-size: 35px;
+    font-family: "Playfair Display", serif;
+    font-size: 26px;
     position: relative;
     top: 10%;
 }
@@ -45,24 +45,27 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: url('https://cdn.pixabay.com/photo/2016/01/19/21/31/background-1150511_960_720.jpg');
+    background: url('https://static.vecteezy.com/ti/photos-gratuite/p2/2254535-fond-de-texture-aquarelle-vert-pastel-gratuit-photo.jpg');
+    /*url('https://cdn.pixabay.com/photo/2016/01/19/21/31/background-1150511_960_720.jpg');*/
+    color: white;
     background-position: bottom;
     background-size: cover;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 40px;
-    font-family: 'Anton', sans-serif;
+    font-family: "Playfair Display", serif;
 }
 
 header h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: 50px;
+    font-family: "Playfair Display", serif;
+    font-size: 90px;
     margin-bottom: 10px;
 }
 
 header h4 {
     margin-top: -20px;
-    font-size: 30px;
+    font-size: 15px;
     text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     border-bottom: 1px solid rgb(15, 15, 15);
 }
 
@@ -104,43 +107,58 @@ header button {
 
 .main .content .card .left .Musique {
     position: relative;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
     flex: 0 0 30%;
-    padding: 20px;
-    background-color: #ee82ee;
+    padding: 20px 50px;
+    background-color: #dbadb7;
     color: #fff;
-    box-shadow: 5px 5px 0px 0px #e767e7, 10px 10px 0px 0px #f352f3;
-}
-
-.main .content .card .left .Geographie {
-    flex: 0 0 30%;
-    padding: 20px;
-    background-color: #ff7f50;
-    color: #fff;
-    box-shadow: 5px 5px 0px 0px #f19776, 10px 10px 0px 0px #f0a88e;
-}
-
-.main .content .card .left .Jeux-Video {
-    flex: 0 0 30%;
-    padding: 20px;
-    background-color: rgb(172, 45, 45);
-    color: #fff;
-    box-shadow: 5px 5px 0px 0px rgb(155, 63, 63), 10px 10px 0px 0px rgb(163, 99, 99);
-}
-
-.main .content .card .left .info {
-    flex: 0 0 30%;
-    padding: 20px;
-    background-color: rgb(4, 4, 75);
-    color: #fff;
-    box-shadow: 5px 5px 0px 0px rgb(33, 33, 73), 10px 10px 0px 0px rgb(56, 56, 97);
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 0px rgb(196, 151, 161), 10px 10px 0px 0px #bb8e98;
 }
 
 .main .content .card .left .Culture {
     flex: 0 0 30%;
-    padding: 20px;
-    background-color: rgb(33, 97, 40);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    padding: 20px 50px;
+    background-color: #d4a696;
     color: #fff;
-    box-shadow: 5px 5px 0px 0px rgb(81, 121, 87), 10px 10px 0px 0px rgb(101, 133, 104);
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 0px #ce9887, 10px 10px 0px 0px #ce8e79;
+}
+
+.main .content .card .left .Jeux-Video {
+    flex: 0 0 30%;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    padding: 20px 50px;
+    background-color: rgb(238, 150, 150);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 0px rgb(216, 119, 119), 10px 10px 0px 0px rgb(202, 105, 105);
+}
+
+.main .content .card .left .info {
+    flex: 0 0 30%;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    padding: 20px 50px;
+    background-color: rgb(153, 216, 216);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 0px rgb(117, 202, 202), 10px 10px 0px 0px rgb(91, 194, 194);
+}
+
+.main .content .card .left .Geographie {
+    flex: 0 0 30%;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    padding: 20px 50px;
+    background-color: #afd1c5;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 0px #95cfbc, 10px 10px 0px 0px #8ecfb9;
 }
 
 form {
@@ -170,7 +188,8 @@ ul {
 }
 
 footer {
-    background: url('https://cdn.pixabay.com/photo/2016/01/19/21/31/background-1150511_960_720.jpg');
+    background: url('https://static.vecteezy.com/ti/photos-gratuite/p2/2254535-fond-de-texture-aquarelle-vert-pastel-gratuit-photo.jpg');
+    ;
     padding: 70px 0;
 }
 
@@ -193,7 +212,7 @@ footer {
     position: absolute;
     left: 0;
     bottom: -10px;
-    background-color: #e91e63;
+    background-color: #000803;
     height: 2px;
     box-sizing: border-box;
     width: 50px;
@@ -252,4 +271,19 @@ footer {
     .footer-col {
         width: 100%;
     }
+}
+
+.button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    /* background-color: rgb(0, 128, 85); */
+    /*color: white;*/
+    /* padding: 2px 6px 2px 6px; */
+    /* border-top: 1px solid #CCCCCC;*/
+    /* border-right: 1px solid #333333;*/
+    /*border-bottom: 1px solid #333333;*/
+    /* border-left: 1px solid #CCCCCC; */
+    border-radius: 5px;
+    margin-left: 236px;
+    padding: 5px 15px;
 }

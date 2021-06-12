@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+header {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+.Comments {
+    border: solid 1px;
+}
+
+.Comments h2 {
+    color: #FFB480
+}
+
+.name_comment p {
+    font-size: 25px !;
+    font-style: oblique;
+    color: blue;
+    font-weight: bold;
+}
+
+.name_comment:hover {
+    text-decoration: underline;
+}
+
+.Comment {
+    border: solid 1px;
+    word-wrap: break-word;
+}
+
+.container {
+    display: block;
+    height: 90%;
+    background-color: white;
+    width: 50%;
+    margin-left: 20%;
+    margin-top: 5%;
+    margin-right: 20%;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.profil {
+    /* height: 50px;*/
+    background-color: white;
+    width: 100%;
+    float: right;
+    word-wrap: break-word;
+}
+
+.description_text {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    word-wrap: break-word;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+}
+
+p {
+    font-family: "Montserrat", "sans sherif";
+    font-size: 20px;
+}
+
+.forum {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.name p {
+    font-size: 30px !important;
+    font-style: oblique;
+    color: #12132c;
+    font-weight: bold;
+}
+
+.name:hover {
+    text-decoration: underline;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+header {
+    background: url("https://thumbs.dreamstime.com/t/pastel-blue-wooden-wall-texture-background-world-s-leading-wood-working-resource-vintage-teak-surface-board-grunge-plywood-157782816.jpg");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+h1 {
+    color: black;
+    font-size: 38px;
+    font-family: 'Playfair Display', serif;
+}
+
+button {
+    background-color: transparent;
+    font-size: 20px;
+    font-family: "Montserrat", "sans sherif";
+    color: black;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+body {
+    background: url('../img/videogames.jpg');
+    background-size: cover;
+}
+
+#posting {
+    height: 250px;
+    width: 400px;
+    margin-top: 12%;
+    margin-left: 35%;
+    font-size: 26px;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(8, 8, 8);
+    /* background-color: black; */
+    background: url("https://thumbs.dreamstime.com/t/pastel-blue-wooden-wall-texture-background-world-s-leading-wood-working-resource-vintage-teak-surface-board-grunge-plywood-157782816.jpg");
+    border-radius: 9px;
+}
+
+#log {
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    margin-left: 35%;
+    margin-top: 13%;
+    font-size: 10px;
+    width: 100px;
+}

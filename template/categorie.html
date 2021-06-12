@@ -7,13 +7,14 @@
     <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="16x16" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/informatique.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/{{.Category}}.css" />
 </head>
 <header>
     <h1>{{.Category}}</h1>
 
     <div class="navbar">
-        <a class="lien" href="Accueil.html"><button>Home</button></a> {{if eq .Status "1"}}
+        <a class="lien" href="Accueil.html"><button>Home</button></a>
+        <a class="lien" href="Posts.html"><button>Categories</button></a>{{if eq .Status "1"}}
         <a class="lien" href="Post_{{.Category}}.html"><button>Post</button></a> {{end}}
     </div>
 </header>
@@ -30,9 +31,14 @@
         <div class="description_text">
             <p>{{.Description}}</p>
         </div>
+        {{if eq .Img ""}}
+        <div class="image">
+        </div>
+        {{else}}
         <div class="image">
             <img src="../{{.Img}}" />
         </div>
+        {{end}}
         <div class="Comments">
             <h2>Comments :</h2>
             {{range .Comments}}
@@ -48,7 +54,6 @@
     {{if eq $Stat "1"}}
     <form method="POST">
         <div class="forum">
-            <button>Like</button>
             <button value="{{.ID_Post}}" name="comment">Post a New Comment</button>
         </div>
     </form>
