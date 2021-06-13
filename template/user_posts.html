@@ -21,8 +21,12 @@
     {{range .Posts}}
 
     <div class="container">
-        <div class="Categorie">
+        <div class="Categorie deletion">
             <h3>{{.Category}}</h3>
+            <form class="form" method="POST">
+
+                <button value="{{.ID_Post}}" name="delete">Delete Post</button>
+            </form>
         </div>
         <div class="profil name">
             <p>{{.User.User_name}}</p>

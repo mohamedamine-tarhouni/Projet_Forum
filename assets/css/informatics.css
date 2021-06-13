@@ -103,6 +103,10 @@ h1 {
     font-family: 'Playfair Display', serif;
 }
 
+.deletion {
+    display: flex;
+}
+
 button {
     background-color: transparent;
     font-size: 20px;
