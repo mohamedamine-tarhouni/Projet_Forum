@@ -4,7 +4,7 @@
 <head>
     {{$msg := .}}
     <title>formulaire d'inscription</title>
-    <link rel="icon" href="../assets/img/icon.jpg" type="image/gif" sizes="16x16" />
+    <link rel="icon" href="../assets/img/forum icon.png" type="image/gif" sizes="16x16" />
     <link rel="stylesheet" type="text/css" href="../assets/css/creation_compte.css" />
     <!--<link rel="stylesheet" href="inscription.css">-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
@@ -13,6 +13,7 @@
 <body>
     <div class="inputs">
         <form method="POST" class="Register" name="Register_form">
+            <a href="Accueil.html" class="icon"><i class="fa fa-home" aria-hidden="true"></i></a>
             <h1>Sign Up</h1>
             <!-- Saisie de Prenom -->
             {{if eq .Err_name "1"}}
@@ -133,10 +134,7 @@
         <input class="submit" type="submit" name="button_submit" value="Create Account" />
         <!-- <input type="button" value="Submit" onsubmit="return verif()" /> -->
       </div>
-      
+      <a href="login.html" class="button">Login</a>
     </form>
-    <a href="./login.html">LOGIN</a>
-    <a href="./Accueil.html">Accueil</a>
-    <script src="../assets/js/main.js"></script>
   </body>
 </html>

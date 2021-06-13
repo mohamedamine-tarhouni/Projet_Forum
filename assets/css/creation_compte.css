@@ -65,3 +65,31 @@ label {
     margin: .4rem 0;
     font-size: 15px;
 }
+
+.button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: rgb(0, 128, 85);
+    color: white;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin-left: 236px;
+    padding: 5px 15px;
+}
+
+.icon .fa {
+    right: 0;
+    margin-left: 500px;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: rgb(0, 128, 85);
+    color: white;
+    padding: 2px 6px 2px 6px;
+}

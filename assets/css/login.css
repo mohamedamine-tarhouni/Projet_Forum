@@ -71,6 +71,32 @@ span {
     margin-right: 250px;
 }
 
-a {
-    color: #446457;
+.button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: rgb(0, 128, 85);
+    color: white;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin-left: 236px;
+    padding: 5px 15px;
+}
+
+.awesome {
+    position: relative;
+    /* right: 0; */
+    margin-left: 300;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    /* width: 25px; */
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: rgb(0, 128, 85);
+    color: white;
+    padding: 2px 6px 2px 6px;
 }
