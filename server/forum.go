@@ -6,6 +6,7 @@ import (
 	render "./renders"
 )
 
+//we need to call Handlefunc to every link to render these pages
 func Forum() {
 	http.HandleFunc("/Posts.html", render.Render_Categories)
 	http.HandleFunc("/informatics.html", render.Render_Posts)

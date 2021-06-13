@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+//this function Creates the Database with the good data in it if it dosent exist
 func Create_Data() {
 	database, err := sql.Open("sqlite3", "./Forum_Final.db")
 	if err != nil {
@@ -55,15 +56,16 @@ func Create_Data() {
 						NOT NULL,
 		Lib_Cat STRING  NOT NULL
 	);					`
-	//creation du table Utilisateur
+	//creation of the table Utilisateur
 	_, _ = database.Exec(query_user)
-	//creation du table Reaction
+	//creation of the table Reaction
 	_, _ = database.Exec(query_react)
-	//creation du table Post
+	//creation of the table Post
 	_, _ = database.Exec(query_post)
-	//creation du table Commentaire
+	//creation of the table Commentaire
 	_, _ = database.Exec(query_comment)
-	//creation du table Categorie
+	//creation of the table Categorie
 	_, _ = database.Exec(query_category)
+	//we need to turn journal mode so the database dont get locked during the launch of the website
 	_, _ = database.Exec("PRAGMA journal_mode=WAL;")
 }

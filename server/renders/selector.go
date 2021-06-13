@@ -6,14 +6,21 @@ import (
 	"strconv"
 )
 
+//this function returns the Username using his Mail
 func Select_Username(db *sql.DB, address string) string {
+
+	//we get the Username by his Mail
 	query := "SELECT User_name FROM Utilisateur WHERE MAIL='" + address + "'"
+
+	//we execute the previously written query
 	result, err := db.Query(query)
 	if err != nil {
 		log.Fatal(err)
 		println("utilisateur n'existe pas")
 	}
 	var User string
+
+	//we scan the columns for the username to return it
 	for result.Next() {
 		result.Scan(&User)
 		// defer db.Close()
@@ -22,6 +29,8 @@ func Select_Username(db *sql.DB, address string) string {
 	}
 	return "0"
 }
+
+//this function returns the User_ID using his Username
 func Select_ID(db *sql.DB, Username string) int {
 	query := "SELECT ID_user FROM Utilisateur WHERE User_name='" + Username + "'"
 	result, err := db.Query(query)
@@ -38,7 +47,11 @@ func Select_ID(db *sql.DB, Username string) int {
 	}
 	return -1
 }
+
+//this function gets all the Posts related to a specific user and puts it in an arrays which is the result of this function
 func Select_User_Posts(db *sql.DB, ID_user int) []Post {
+
+	//we select the post by the user_ID
 	query := "SELECT * FROM Post WHERE ID_user=?"
 	result, _ := db.Query(query, ID_user)
 	var posts []Post
@@ -48,6 +61,8 @@ func Select_User_Posts(db *sql.DB, ID_user int) []Post {
 	var Description string
 	var Image string
 	var ID_u int
+
+	//we scan all the found data to put it inside the array which will be returned
 	for result.Next() {
 		var Post Post
 		result.Scan(&ID, &Title, &Category, &Description, &ID_u, &Image)
@@ -65,6 +80,8 @@ func Select_User_Posts(db *sql.DB, ID_user int) []Post {
 	}
 	return posts
 }
+
+//this function Selects the posts by Category
 func Select_Posts(db *sql.DB, cat string) []Post {
 	// query := "SELECT * FROM Post WHERE Categorie='informatique'"
 	query := "SELECT * FROM Post WHERE Categorie='" + cat + "'"
@@ -99,6 +116,7 @@ func Select_Posts(db *sql.DB, cat string) []Post {
 	return posts
 }
 
+//this function returns the info about a user using his ID
 func select_user(db *sql.DB, ID int) USER {
 	ID_Str := strconv.Itoa(ID)
 
@@ -119,6 +137,8 @@ func select_user(db *sql.DB, ID int) USER {
 	}
 	return User
 }
+
+//this function returns a password using the Mail of the user or returns "0" if the mail dosen't exist
 func Select_password(db *sql.DB, address string) string {
 	query := "SELECT PASSWORD FROM Utilisateur WHERE MAIL='" + address + "'"
 	result, err := db.Query(query)
@@ -134,6 +154,8 @@ func Select_password(db *sql.DB, address string) string {
 	}
 	return "0"
 }
+
+//this function returns an array containing all the comments related to a post using the Post_ID
 func Select_comment(db *sql.DB, Post_id int) []Commentaire {
 	var comments []Commentaire
 	var commentaire Commentaire

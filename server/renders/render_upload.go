@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+//this function renders the page which will upload the files
 func Render_Upload(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("UN")
 	if err != nil {
@@ -62,7 +63,10 @@ func Render_Upload(w http.ResponseWriter, r *http.Request) {
 	link := r.URL.Path + ".html"
 	println(link)
 	ID := Select_ID(database, c.Value)
+	//we insert the data in the database (the title/description and the image)
 	query_insert := `INSERT INTO Post (Title,Categorie,Description,ID_user,Image) VALUES (?, ?,?,?,?)`
+
+	//the user has to submit any of these informations to add a post
 	if (Title != "") || (Description != "") || (filename != "") {
 		_, err_insert := database.Exec(query_insert, Title, r.URL.Path[1:], Description, ID, filename)
 		http.Redirect(w, r, link, http.StatusFound)
@@ -71,6 +75,7 @@ func Render_Upload(w http.ResponseWriter, r *http.Request) {
 			log.Fatalf(err.Error())
 		}
 	} else {
+		//if all the fields are empty we refresh the page
 		link = "/Post_" + r.URL.Path[1:] + ".html"
 		http.Redirect(w, r, link, http.StatusFound)
 	}
