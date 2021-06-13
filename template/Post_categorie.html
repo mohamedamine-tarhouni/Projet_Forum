@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/img/forum icon.png" type="image/gif" sizes="16x16" />
+    <link rel="icon" href="../assets/img/icon.jpg" type="image/gif" sizes="16x16" />
     <link rel="stylesheet" type="text/css" href="../assets/css/{{.}}.css" />
 </head>
 <header>
 
-    <h1>Nouveau Post Pour {{.}}</h1>
+    <h1>New Post For {{.}}</h1>
 
     <div class="navbar">
         <a class="lien" href="Accueil.html"><button>Home</button></a>
@@ -25,7 +25,7 @@
     <div class="Post_Cat">
         <!-- <h2>Login Page</h2> -->
         <form id="posting" method="POST" action="/{{.}}" enctype="multipart/form-data">
-
+            <div class="container-posting">
             <!-- Saisie du Titre -->
             <div class="new_post">
                 <label for="title-input"> Title  </label>
@@ -38,15 +38,16 @@
                 <textarea name="Description" id="description-input" class="description" placeholder="Description"></textarea>
                 <!-- <input id="MDP-input" class="MDP" name="MDP" type="password" value="" placeholder="Description" /> -->
             </div>
-            <!-- Saisie du Description -->
-            <div class="new_post">
-                <input accept="image/*,image/heif,image/heic" class="mkhogb32" multiple="" type="file" role="button" name="Image">
+            <!-- Saisie d'une image -->
+            <div class="new-image">
+               <input accept="image/*,image/heif,image/heic" class="image-input" multiple="" type="file" role="button" name="Image">
             </div>
 
             <div>
                 <input class="submit" type="submit" value="Post" id="log" />
                 <!-- <input type="button" value="Submit" onsubmit="return verif()" /> -->
             </div>
+        </div>
         </form>
 
 </body>

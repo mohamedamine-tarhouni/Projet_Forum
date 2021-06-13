@@ -11,21 +11,17 @@ button:hover {
     text-decoration: underline;
 }
 
-.Comments {
-    border: solid 1px;
-    color: black;
-}
-
 .Comments h2 {
-    color: rgb(56, 52, 52);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0a0a0a;
+    font-family: 'Anton', sans-serif;
 }
 
 .name_comment p {
     font-size: 25px !;
     font-style: oblique;
-    color: rgb(31, 29, 29);
+    color: rgb(42, 42, 77);
     font-weight: bold;
+    font-family: 'Anton', sans-serif;
 }
 
 .name_comment:hover {
@@ -33,41 +29,26 @@ button:hover {
 }
 
 .Comment {
-    border: solid 1px;
     word-wrap: break-word;
 }
 
 .container {
     display: block;
     height: 90%;
-    background-color: rgba(255, 255, 255, 0.479);
+    background-color: rgb(231, 230, 230);
     width: 50%;
-    margin-left: 20%;
+    margin-left: auto;
     margin-top: 5%;
-    margin-right: 20%;
-    border-style: solid;
-    border-radius: 10px;
+    margin-right: auto;
 }
 
-.profil {
+.container .profil {
     /* height: 50px;*/
-    background-color: transparent;
+    background-color: rgb(231, 230, 230);
     width: 100%;
     float: right;
     word-wrap: break-word;
-}
-
-textarea {
-    resize: none;
-    width: 300px;
-    height: 100px;
-    text-align: center;
-    box-sizing: border-box;
-    border: 1px solid;
-    border-radius: 16px;
-    /* background-color: #fcd700; */
-    font-size: 15px;
-    /* box-shadow: 0 0 20px rgb(239 32 227); */
+    font-family: 'Anton', sans-serif;
 }
 
 .description_text {
@@ -75,7 +56,8 @@ textarea {
     margin-left: 0;
     margin-right: 0;
     word-wrap: break-word;
-    resize: none;
+    font-family: 'Anton', sans-serif;
+    font-family: bold;
 }
 
 .image img {
@@ -86,11 +68,13 @@ textarea {
 p {
     font-family: "Montserrat", "sans sherif";
     font-size: 20px;
+    font-family: 'Anton', sans-serif;
 }
 
 .forum {
     text-align: center;
     margin-top: 10px;
+    font-family: 'Anton', sans-serif;
 }
 
 .name p {
@@ -98,6 +82,7 @@ p {
     font-style: oblique;
     color: #12132c;
     font-weight: bold;
+    font-family: 'Anton', sans-serif;
 }
 
 .name:hover {
@@ -106,7 +91,7 @@ p {
 
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
 header {
-    background: rgba(113, 96, 175, 0.555);
+    background: url("https://thumbs.dreamstime.com/t/pastel-blue-wooden-wall-texture-background-world-s-leading-wood-working-resource-vintage-teak-surface-board-grunge-plywood-157782816.jpg");
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,77 +101,56 @@ header {
 h1 {
     color: black;
     font-size: 38px;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Anton', sans-serif;
+}
+
+.deletion {
+    display: flex;
 }
 
 button {
     background-color: transparent;
     font-size: 20px;
-    font-family: "Montserrat", "sans sherif";
+    font-family: 'Anton', sans-serif;
     color: black;
     border: none;
     border-radius: 9px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
-    background-color: aliceblue;
 }
 
 body {
-    background: url('../img/videogames.jpg');
+    background: url('https://static.vecteezy.com/ti/photos-gratuite/p1/1911437-fond-bleu-marine-rustique-gratuit-photo.jpg');
     background-size: cover;
 }
 
 #posting {
     height: 250px;
-    width: 600px;
+    width: 400px;
     margin-top: 12%;
-    margin-left: 28%;
+    margin-left: 35%;
     font-size: 26px;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bolder;
+    font-family: 'Anton', sans-serif;
     color: rgb(8, 8, 8);
     /* background-color: black; */
-    background: rgba(113, 96, 175, 0.658);
+    background: url("https://thumbs.dreamstime.com/t/pastel-blue-wooden-wall-texture-background-world-s-leading-wood-working-resource-vintage-teak-surface-board-grunge-plywood-157782816.jpg");
     border-radius: 9px;
 }
 
 #log {
-    color: black;
-    font-weight: bolder;
-    background-color: rgb(219, 207, 224);
-    padding: 5px 10px;
+    color: white;
+    background-color: black;
     border-radius: 10px;
     margin-left: 35%;
-    margin-top: 2.5%;
+    margin-top: 13%;
     font-size: 10px;
     width: 100px;
 }
 
-.new_post {
-    display: flex;
-    justify-content: start;
-    margin-left: 0;
-    margin-bottom: 20px;
-    /* margin-top: 25px; */
-    margin-left: 9px;
-}
-
-.new_post label {
-    width: 30%;
-    text-align: left;
-    font-size: 20px;
-}
-
-.new_post label+* {
-    width: 50%;
-}
-
-.title {
-    text-align: center;
-    box-sizing: border-box;
-    border: 1px solid;
-    border-radius: 16px;
-    /* background-color: #fcd700; */
-    font-size: 15px;
-    /* box-shadow: 0 0 20px rgb(239 32 227); */
+#delete {
+    color: rgb(0, 0, 0);
+    position: relative;
+    left: 455%;
+    bottom: 50%;
+    background-color: white;
 }
